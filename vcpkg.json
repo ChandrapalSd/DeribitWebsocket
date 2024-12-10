@@ -1,0 +1,8 @@
+{
+  "dependencies": [
+    "crow",
+    "nlohmann-json",
+    "cpp-httplib",
+    "openssl"
+  ]
+}
