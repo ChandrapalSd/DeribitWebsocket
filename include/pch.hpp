@@ -7,3 +7,12 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <ctype.h>
+#include <expected>
+#include <memory>
+#include <cstdlib>
+#include <boost/beast/core.hpp>
+#include <boost/beast/websocket.hpp>
+#include <boost/beast/websocket/ssl.hpp>
+#include <boost/asio/ssl.hpp>
+#include <boost/asio/strand.hpp>
+#include "test_root_certificates.hpp"

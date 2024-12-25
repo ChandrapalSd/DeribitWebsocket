@@ -13,6 +13,12 @@ file(GLOB HEADERS include/*.hpp)
 
 set(BUILD_SHARED_LIBS OFF)
 
+if (MSVC)
+  add_compile_options(/bigobj)
+else ()
+  add_compile_options(-Wa,-mbig-obj)
+endif ()
+
 #define target
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
@@ -21,17 +27,22 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE include/pch.hpp)
 
 #dependencies
 find_package(nlohmann_json CONFIG REQUIRED)
-find_package(Crow CONFIG REQUIRED)
 find_package(httplib CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
+find_package(boost_beast REQUIRED CONFIG)
 
 set(HTTPLIB_IS_USING_OPENSSL TRUE)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC Crow::Crow nlohmann_json::nlohmann_json httplib::httplib $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:OpenSSL::SSL>
-        $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:OpenSSL::Crypto>)
-#target_link_libraries(${PROJECT_NAME} PRIVATE Crow::Crow asio::asio)								   
+target_link_libraries(${PROJECT_NAME} PUBLIC 
+    nlohmann_json::nlohmann_json 
+    httplib::httplib 
+    $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:OpenSSL::SSL>
+    $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:OpenSSL::Crypto>
+    Boost::beast
+)							   
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
         $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:CPPHTTPLIB_OPENSSL_SUPPORT>
         )
+
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
