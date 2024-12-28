@@ -3,6 +3,7 @@
     "nlohmann-json",
     "cpp-httplib",
     "openssl",
-    "boost-beast"
+    "boost-beast",
+    "wxwidgets"
   ]
 }

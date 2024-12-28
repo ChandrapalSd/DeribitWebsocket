@@ -239,7 +239,7 @@ public:
 
 //------------------------------------------------------------------------------
 
-int dw::App::test(){
+int dw::App::testws(){
 
     auto const host = "test.deribit.com";
     auto const port = "443";

@@ -16,3 +16,8 @@
 #include <boost/asio/ssl.hpp>
 #include <boost/asio/strand.hpp>
 #include "test_root_certificates.hpp"
+
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
