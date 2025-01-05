@@ -16,7 +16,7 @@ namespace dw {
 	{
 		/*connect();
 		getCurrencies();*/
-		//testws();
+		test();
 		return true;
 	}
 

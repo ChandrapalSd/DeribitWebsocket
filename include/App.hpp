@@ -26,7 +26,7 @@ namespace dw {
 		App();
 		~App() = default;
 		bool run();
-		int testws();
+		int test();
 	private:
 		bool connect();
 		bool getCurrencies();

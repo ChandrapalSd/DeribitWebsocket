@@ -20,7 +20,7 @@ else ()
 endif ()
 
 #define target
-add_executable(${PROJECT_NAME} WIN32 ${SOURCES} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 #pch
 target_precompile_headers(${PROJECT_NAME} PRIVATE include/pch.hpp)
@@ -30,7 +30,6 @@ find_package(nlohmann_json CONFIG REQUIRED)
 find_package(httplib CONFIG REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(boost_beast REQUIRED CONFIG)
-find_package(wxWidgets REQUIRED COMPONENTS net core base)
 
 set(HTTPLIB_IS_USING_OPENSSL TRUE)
 
@@ -40,15 +39,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:OpenSSL::SSL>
     $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:OpenSSL::Crypto>
     Boost::beast
-    ${wxWidgets_LIBRARIES}
 )							   
 
 target_compile_definitions(${PROJECT_NAME} PUBLIC
         $<$<BOOL:${HTTPLIB_IS_USING_OPENSSL}>:CPPHTTPLIB_OPENSSL_SUPPORT>
         )
-
- if (MSVC)
-     target_compile_definitions(${PROJECT_NAME} PUBLIC UNICODE _UNICODE)
- endif()
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
